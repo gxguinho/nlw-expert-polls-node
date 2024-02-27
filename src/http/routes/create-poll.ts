@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from "zod";
 import { prisma } from "../../lib/prisma";
 import { FastifyInstance } from "fastify";
 
@@ -16,7 +16,11 @@ export async function createPoll(app: FastifyInstance) {
         title,
         options: {
           createMany: {
-            data: options.map((option) => ({ title: option })),
+            data: options.map((option) => {
+              return {
+                title: option,
+              };
+            }),
           },
         },
       },
